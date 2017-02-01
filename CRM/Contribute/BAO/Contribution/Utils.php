@@ -105,6 +105,12 @@ class CRM_Contribute_BAO_Contribution_Utils {
       CRM_Utils_Date::mysqlToIso($form->_params['receive_date'])
     );
     $result = NULL;
+
+    // hacky workaround for core bug in 4.6
+    if (!isset($form->_contributeMode)) {
+      $form->_contributeMode = 'notify';
+    }
+
     if ($form->_contributeMode == 'notify' ||
       $isPayLater
     ) {
